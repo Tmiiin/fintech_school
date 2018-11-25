@@ -6,11 +6,14 @@ import requests
 class HttpClient(object):
     """Class to work with HTTP requests."""
 
+    def __init__(self):
+        self.base_url = "https://fintech-trading-qa.tinkoff.ru/v1/md/"
+        self.headers = {'Authorization': 'Basic ZmludGVjaDoxcTJ3M2Uh'}
+
     def get_instruments(self):
 
-        headers = {'Authorization': 'Basic ZmludGVjaDoxcTJ3M2Uh'}
-        url = "https://fintech-trading-qa.tinkoff.ru/v1/md/exchanges/moex/instruments?request_id=1&system_code=2"
+        url = self.base_url + 'exchanges/moex/instruments?request_id=1&system_code=2'
 
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=self.headers)
 
         return response
