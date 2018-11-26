@@ -26,7 +26,7 @@ class HttpClient(object):
 
         head = {'Authorization': 'Basic ZmludGVjaDoxcTJ3M2Uh', 'Content-type': 'application/json'}
 
-        data = {'body': [{"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type,
+        data = {"body": [{"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type,
                                                                                         "price_alert": price_alert}]}
 
         return requests.post(url, json=json.dumps(data), headers=head)
