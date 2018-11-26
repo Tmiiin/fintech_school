@@ -22,8 +22,23 @@ class HttpClient(object):
     def post_sub(self, request_id, system_code, instrument_id, sec_name, sec_type, price_alert, siebel_id):
         """Function allows to post subscription"""
 
-        url = self.base_url + "contacts/" + siebel_id +"/subscriptions?request_id=" + request_id + "&system_code=" + system_code
+        url = self.base_url + "contacts/" + siebel_id + "/subscriptions?request_id=" + request_id + "&system_code=" \
+                                                                                                        + system_code
 
-        data = {json.dumps({"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type, "price_alert": price_alert})}
+        data = {"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type, "price_alert": price_alert}
 
-        return requests.post(url, json=data, headers=self.headers)
+        return requests.post(url, json=json.dumps(data), headers=self.headers)
+
+    def get_sub(self, siebel_id, request_id, system_code):
+
+        url = self.base_url + 'contacts/' + siebel_id + '/subscriptions?request_id=' + request_id + '&system_code=' \
+                                                                                                        + system_code
+
+        return requests.get(url=url, headers=self.headers)
+
+    def delete_sub(self, siebel_id, request_id, system_code, subscription_id):
+
+        url = self.base_url + 'contacts/' + siebel_id + '/subscriptions/' + subscription_id + '?request_id='\
+                                                                            + request_id + '&system_code=' + system_code
+        return requests.delete(url=url, headers=self.headers)
+
