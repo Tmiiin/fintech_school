@@ -22,12 +22,14 @@ class HttpClient(object):
     def post_sub(self, request_id, system_code, instrument_id, sec_name, sec_type, price_alert, siebel_id):
         """Function allows to post subscription"""
 
-        url = self.base_url + "contacts/" + siebel_id + "/subscriptions?request_id=" + request_id + "&system_code=" \
-                                                                                                        + system_code
+        url = self.base_url + "contacts/" + siebel_id + "/subscriptions?request_id=" + request_id + "&system_code=" + system_code
 
-        data = {"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type, "price_alert": price_alert}
+        head = {'Authorization': 'Basic ZmludGVjaDoxcTJ3M2Uh', 'Content-type': 'application/json'}
 
-        return requests.post(url, json=json.dumps(data), headers=self.headers)
+        data = {'body': [{"instrument_id": instrument_id, "sec_name": sec_name, "sec_type": sec_type,
+                                                                                        "price_alert": price_alert}]}
+
+        return requests.post(url, json=json.dumps(data), headers=head)
 
     def get_sub(self, siebel_id, request_id, system_code):
 
